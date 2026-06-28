@@ -15,8 +15,9 @@ export const WIDGET_CATALOG: WidgetDef[] = [
   { type: 'asset-class-grid',   title: 'Credit',             group: 'By Class', state: { assetClass: 'Credit' } },
   { type: 'asset-class-grid',   title: 'High Yield',         group: 'By Class', state: { assetClass: 'High Yield' } },
   { type: 'asset-class-grid',   title: 'Emerging Markets',   group: 'By Class', state: { assetClass: 'Emerging Markets' } },
-  { type: 'maturity-ladder',    title: 'Maturity Ladder',    group: 'Ladders' },
-  { type: 'coupon-ladder',      title: 'Coupon Ladder',      group: 'Ladders' },
+  { type: 'maturity-ladder',     title: 'Maturity Ladder',    group: 'Ladders' },
+  { type: 'coupon-ladder',       title: 'Coupon Ladder',      group: 'Ladders' },
+  { type: 'instrument-sandbox',  title: 'All Instruments',    group: 'Sandbox' },
 ];
 
 export const WIDGET_GROUPS = [...new Set(WIDGET_CATALOG.map(w => w.group))];
