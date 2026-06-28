@@ -1,0 +1,87 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-bg-surface);
+}
+
+.panel-header {
+  flex-wrap: wrap;
+  gap: 4px;
+  height: auto;
+  min-height: 30px;
+  padding-bottom: 4px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb-sep {
+  color: var(--color-text-muted);
+  font-size: 10px;
+  margin: 0 1px;
+}
+
+.breadcrumb-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 10px;
+  color: var(--color-text-muted);
+  padding: 1px 4px;
+  border-radius: 2px;
+  transition: color 0.12s, background 0.12s;
+}
+
+.breadcrumb-btn:hover {
+  color: var(--color-text-primary);
+  background: var(--color-bg-overlay);
+}
+
+.breadcrumb-btn--active {
+  color: var(--color-neutral) !important;
+  cursor: default;
+}
+
+.grid-body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Rows are clickable until instrument level */
+:host ::ng-deep .drill-row {
+  cursor: pointer;
+}
+
+:host ::ng-deep .drill-row:hover .ag-cell {
+  background: var(--color-bg-overlay) !important;
+}
+
+.drill-hint {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+  background: var(--color-bg-elevated);
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.drill-hint span {
+  font-size: 9px;
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+}
+
+.drill-hint-count {
+  font-family: var(--font-family-mono);
+  color: var(--color-text-secondary) !important;
+}

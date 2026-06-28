@@ -1,3 +1,185 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+@import 'golden-layout/dist/css/goldenlayout-base.css';
+@import 'golden-layout/dist/css/themes/goldenlayout-dark-theme.css';
+
+@theme {
+  --color-bg-base: #0b0b0f;
+  --color-bg-surface: #13131a;
+  --color-bg-elevated: #1a1a26;
+  --color-bg-overlay: #21212f;
+
+  --color-border: #2a2a3e;
+  --color-border-subtle: #1e1e2c;
+
+  --color-text-primary: #e2e2f0;
+  --color-text-secondary: #8888aa;
+  --color-text-muted: #55556a;
+
+  --color-profit: #26d97f;
+  --color-loss: #ef4444;
+  --color-neutral: #3b82f6;
+  --color-warning: #f59e0b;
+
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', ui-monospace, monospace;
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-sans);
+  font-size: 11px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-neutral);
+  outline-offset: 2px;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-neutral) 30%, transparent);
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--color-bg-surface); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+
+/* ── Golden Layout dark theme overrides ──────────────── */
+.lm_goldenlayout {
+  background: var(--color-bg-base) !important;
+}
+
+.lm_header {
+  background: var(--color-bg-elevated) !important;
+  height: 26px !important;
+}
+
+.lm_tabs {
+  padding-top: 3px;
+}
+
+.lm_tab {
+  background: transparent !important;
+  border: none !important;
+  border-top: 2px solid transparent !important;
+  color: var(--color-text-muted) !important;
+  font-size: 10px !important;
+  font-family: var(--font-family-sans) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  padding: 3px 12px !important;
+  margin-right: 1px !important;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.lm_tab.lm_active {
+  background: var(--color-bg-surface) !important;
+  border-top-color: var(--color-neutral) !important;
+  color: var(--color-text-primary) !important;
+}
+
+.lm_tab:hover:not(.lm_active) {
+  color: var(--color-text-secondary) !important;
+}
+
+.lm_tab .lm_close_tab {
+  opacity: 0.4;
+  font-size: 10px !important;
+}
+
+.lm_tab:hover .lm_close_tab {
+  opacity: 0.8;
+}
+
+.lm_content {
+  background: var(--color-bg-surface) !important;
+  border: none !important;
+  overflow: hidden;
+}
+
+.lm_splitter {
+  background: var(--color-border) !important;
+}
+
+.lm_splitter:hover,
+.lm_splitter.lm_dragging {
+  background: var(--color-neutral) !important;
+}
+
+.lm_dragProxy .lm_content {
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* ── Shared panel chrome ─────────────────────────────── */
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  height: 24px;
+  background: var(--color-bg-elevated);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: 0.03em;
+}
+
+.panel-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.meta-count {
+  font-size: 10px;
+  font-weight: 600;
+  font-family: var(--font-family-mono);
+  color: var(--color-text-secondary);
+}
+
+.meta-label {
+  font-size: 9px;
+  color: var(--color-text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.meta-sep {
+  color: var(--color-text-muted);
+  font-size: 10px;
+}
+
+.asset-badge {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 5px;
+  border-radius: 2px;
+}
+
+.asset-badge--sovereign { background: color-mix(in srgb, var(--color-neutral) 18%, transparent); color: var(--color-neutral); }
+.asset-badge--credit    { background: color-mix(in srgb, var(--color-profit)  18%, transparent); color: var(--color-profit); }
+.asset-badge--alert     { background: color-mix(in srgb, var(--color-warning) 18%, transparent); color: var(--color-warning); }

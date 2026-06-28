@@ -1,0 +1,77 @@
+<header class="panel-header">
+  <div class="panel-title">Asset Hierarchy</div>
+  <nav class="breadcrumb" aria-label="Drill-down navigation">
+    @for (crumb of breadcrumb(); track crumb; let i = $index) {
+      @if (i > 0) {
+        <span class="breadcrumb-sep" aria-hidden="true">›</span>
+      }
+      <button
+        class="breadcrumb-btn"
+        [class.breadcrumb-btn--active]="i === breadcrumb().length - 1"
+        [attr.aria-current]="i === breadcrumb().length - 1 ? 'page' : null"
+        (click)="navigateTo(i)"
+      >{{ crumb }}</button>
+    }
+  </nav>
+</header>
+
+<div class="grid-body">
+  @switch (drillState().level) {
+    @case ('class') {
+      <ag-grid-angular
+
+        [rowData]="classRows()"
+        [columnDefs]="classColDefs"
+        [defaultColDef]="defaultColDef"
+        [getRowId]="getClassRowId"
+        [suppressCellFocus]="true"
+        [animateRows]="false"
+        [rowClass]="'drill-row'"
+        (gridReady)="onGridReady($event)"
+        (rowClicked)="drillToSector($event)"
+        style="height: 100%; width: 100%;"
+      />
+    }
+    @case ('sector') {
+      <ag-grid-angular
+
+        [rowData]="sectorRows()"
+        [columnDefs]="sectorColDefs"
+        [defaultColDef]="defaultColDef"
+        [getRowId]="getSectorRowId"
+        [suppressCellFocus]="true"
+        [animateRows]="false"
+        [rowClass]="'drill-row'"
+        (gridReady)="onGridReady($event)"
+        (rowClicked)="drillToInstrument($event)"
+        style="height: 100%; width: 100%;"
+      />
+    }
+    @case ('instrument') {
+      <ag-grid-angular
+
+        [rowData]="instrumentRows()"
+        [columnDefs]="instrColDefs"
+        [defaultColDef]="defaultColDef"
+        [getRowId]="getInstrRowId"
+        [suppressCellFocus]="true"
+        [animateRows]="false"
+        (gridReady)="onGridReady($event)"
+        style="height: 100%; width: 100%;"
+      />
+    }
+  }
+</div>
+
+@if (drillState().level !== 'class') {
+  <footer class="drill-hint">
+    <span>Click a row to drill deeper</span>
+    <span class="drill-hint-count">
+      @if (drillState().level === 'sector') {
+        {{ sectorRows().length }} sectors
+      } @else {
+        {{ instrumentRows().length }} bonds
+      }
+    </span>
+  </footer>
+}

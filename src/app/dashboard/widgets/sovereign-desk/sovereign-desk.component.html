@@ -1,0 +1,51 @@
+<header class="panel-header">
+  <div class="panel-title">
+    <span class="asset-badge asset-badge--sovereign">SOV</span>
+    Macro Sovereign Desk
+  </div>
+  <div class="panel-meta">
+    <span class="meta-count">{{ rowData().length }}</span>
+    <span class="meta-label">instruments</span>
+    @if (selected()) {
+      <span class="meta-sep">·</span>
+      <span class="meta-label">1 selected</span>
+    }
+  </div>
+</header>
+
+<div class="grid-body">
+  <ag-grid-angular
+    [rowData]="rowData()"
+    [columnDefs]="colDefs"
+    [defaultColDef]="defaultColDef"
+    [getRowId]="getRowId"
+    [rowSelection]="'single'"
+    [suppressCellFocus]="true"
+    [animateRows]="false"
+    (gridReady)="onGridReady($event)"
+    (rowClicked)="onRowClicked($event)"
+    style="height: 100%; width: 100%;"
+  />
+</div>
+
+@if (selected(); as row) {
+  <aside class="detail-panel" aria-label="Bond details for {{ row.ticker }}">
+    <div class="detail-header">
+      <div class="detail-id">
+        <span class="detail-ticker">{{ row.ticker }}</span>
+        <span class="detail-issuer">{{ row.issuer }}</span>
+      </div>
+      <button class="detail-close" (click)="selected.set(null)" aria-label="Close detail panel">✕</button>
+    </div>
+    <div class="detail-fields">
+      <div class="field"><dt>ISIN</dt><dd>{{ row.isin }}</dd></div>
+      <div class="field"><dt>CUSIP</dt><dd>{{ row.cusip }}</dd></div>
+      <div class="field"><dt>Asset Class</dt><dd>{{ row.assetClass }}</dd></div>
+      <div class="field"><dt>Sector</dt><dd>{{ row.sector }}</dd></div>
+      <div class="field"><dt>Moody's</dt><dd>{{ row.ratingMoodys }}</dd></div>
+      <div class="field"><dt>S&amp;P</dt><dd>{{ row.ratingSP }}</dd></div>
+      <div class="field"><dt>Currency</dt><dd>{{ row.currency }}</dd></div>
+      <div class="field"><dt>Volume 24h</dt><dd>${{ row.volume24h | number }}</dd></div>
+    </div>
+  </aside>
+}

@@ -1,0 +1,45 @@
+<header class="panel-header">
+  <div class="panel-title">
+    <span class="asset-badge asset-badge--credit">IG/HY</span>
+    Credit Inventory
+  </div>
+  <div class="panel-meta">
+    <span class="meta-count">{{ rowData().length }}</span>
+    <span class="meta-label">positions</span>
+  </div>
+</header>
+
+<div class="grid-body">
+  <ag-grid-angular
+    [rowData]="rowData()"
+    [columnDefs]="colDefs"
+    [defaultColDef]="defaultColDef"
+    [getRowId]="getRowId"
+    [rowSelection]="'single'"
+    [suppressCellFocus]="true"
+    [animateRows]="false"
+    (gridReady)="onGridReady($event)"
+    (rowClicked)="onRowClicked($event)"
+    style="height: 100%; width: 100%;"
+  />
+</div>
+
+@if (selected(); as row) {
+  <aside class="detail-panel" aria-label="Bond details for {{ row.ticker }}">
+    <div class="detail-header">
+      <div class="detail-id">
+        <span class="detail-ticker">{{ row.ticker }}</span>
+        <span class="detail-issuer">{{ row.issuer }}</span>
+      </div>
+      <button class="detail-close" (click)="selected.set(null)" aria-label="Close">✕</button>
+    </div>
+    <div class="detail-fields">
+      <div class="field"><dt>ISIN</dt><dd>{{ row.isin }}</dd></div>
+      <div class="field"><dt>Moody's</dt><dd>{{ row.ratingMoodys }}</dd></div>
+      <div class="field"><dt>Coupon</dt><dd>{{ row.coupon | number:'1.3-3' }}%</dd></div>
+      <div class="field"><dt>Maturity</dt><dd>{{ row.maturity }}</dd></div>
+      <div class="field"><dt>DV01</dt><dd>{{ row.dv01 | number:'1.4-4' }}</dd></div>
+      <div class="field"><dt>Vol 24h</dt><dd>${{ row.volume24h | number }}</dd></div>
+    </div>
+  </aside>
+}

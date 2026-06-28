@@ -1,0 +1,57 @@
+<div class="workspace">
+  <header class="topbar" role="banner">
+    <div class="topbar-left">
+      <div class="topbar-brand">
+        <span class="brand-name">TEKTONIC</span>
+        <span class="brand-sub">Execution Desk</span>
+      </div>
+
+      <div class="widget-menu-wrap">
+        <button
+          class="menu-btn"
+          [class.menu-btn--open]="menuOpen()"
+          (click)="menuOpen.update(v => !v)"
+          aria-label="Widget catalog"
+          [attr.aria-expanded]="menuOpen()"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <rect x="1" y="1" width="5" height="5" rx="1" fill="currentColor" opacity="0.9"/>
+            <rect x="8" y="1" width="5" height="5" rx="1" fill="currentColor" opacity="0.9"/>
+            <rect x="1" y="8" width="5" height="5" rx="1" fill="currentColor" opacity="0.9"/>
+            <rect x="8" y="8" width="5" height="5" rx="1" fill="currentColor" opacity="0.6"/>
+          </svg>
+          <span>Widgets</span>
+        </button>
+
+        @if (menuOpen()) {
+          <div class="widget-catalog" role="dialog" aria-label="Widget catalog">
+            <div class="catalog-header">Add Widget</div>
+            <div class="catalog-body">
+              @for (group of groups; track group) {
+                <section class="catalog-group">
+                  <div class="catalog-group-label">{{ group }}</div>
+                  @for (w of widgetsByGroup(group); track w.title) {
+                    <button class="catalog-item" (click)="addWidget(w)">
+                      {{ w.title }}
+                    </button>
+                  }
+                </section>
+              }
+            </div>
+            <div class="catalog-hint">Click to add · Drag tabs to rearrange</div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="topbar-status" aria-live="polite" aria-label="Feed status">
+      <span class="status-dot" aria-hidden="true"></span>
+      <span class="status-label">LIVE FEED</span>
+      <span class="status-interval">1s</span>
+    </div>
+  </header>
+
+  <main class="workspace-body" role="main">
+    <app-gl-host />
+  </main>
+</div>

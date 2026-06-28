@@ -1,0 +1,56 @@
+<header class="panel-header">
+  <div class="panel-title">CCY Exposure</div>
+  <div class="panel-meta">
+    @if (selectedCurrency()) {
+      <span class="ccy-selected">{{ selectedCurrency() }}</span>
+      <button class="ccy-clear" (click)="selectedCurrency.set(null)" aria-label="Clear currency filter">✕</button>
+    } @else {
+      <span class="meta-count">{{ currencyRows().length }}</span>
+      <span class="meta-label">currencies</span>
+    }
+  </div>
+</header>
+
+<div class="split-body">
+  <div class="split-top">
+    <ag-grid-angular
+
+      [rowData]="currencyRows()"
+      [columnDefs]="currencyColDefs"
+      [defaultColDef]="defaultColDef"
+      [getRowId]="getCcyRowId"
+      [suppressCellFocus]="true"
+      [animateRows]="false"
+      [rowClass]="'ccy-row'"
+      (gridReady)="onGridReady($event)"
+      (rowClicked)="onCurrencyClicked($event)"
+      style="height: 100%; width: 100%;"
+    />
+  </div>
+
+  <div class="split-divider">
+    @if (selectedCurrency()) {
+      <span class="divider-label">{{ tickerRows().length }} instruments · {{ selectedCurrency() }}</span>
+    } @else {
+      <span class="divider-label">Select a currency to view instruments</span>
+    }
+  </div>
+
+  <div class="split-bottom">
+    @if (selectedCurrency()) {
+      <ag-grid-angular
+  
+        [rowData]="tickerRows()"
+        [columnDefs]="tickerColDefs"
+        [defaultColDef]="defaultColDef"
+        [getRowId]="getInstrRowId"
+        [suppressCellFocus]="true"
+        [animateRows]="false"
+        (gridReady)="onGridReady($event)"
+        style="height: 100%; width: 100%;"
+      />
+    } @else {
+      <div class="split-empty" role="status">Click a row above to explore instruments by currency</div>
+    }
+  </div>
+</div>
